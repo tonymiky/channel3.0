@@ -15,8 +15,9 @@ function Li(props) {
     }
 
     FirstList.map((item, index)=>{
-        arr.push(<li key={'nav_00'+index} >
-                <span onClick={props.nodeClick.bind(this, {item}, navArr,{index})} className={props.index.index===index && props.toggle ?
+        arr.push(<li key={'nav_00'+index}
+                     onClick={props.nodeClick.bind(this, {item}, navArr,{index})}>
+                <span className={props.index.index===index && props.toggle ?
                                 "navigation-root root-active" :
                                 "navigation-root"}>{item.name}</span>
             {<SecondLi nodeMouseover={props.nodeMouseover}
@@ -58,8 +59,8 @@ function SecondLi(props) {
         }
         return item;
     })
-
-    return  (index===curIndex.index && toggle ) ?
+            //(index===curIndex.index && toggle )
+    return  (index===curIndex.index ) ?
                 <ul id="navigation-list-second" className="navigation-list-second">
                     {secondList}
                 </ul> :
@@ -128,19 +129,22 @@ class Navigation extends Component {
     }
 
     nodeClick(obj, navList, index,ev){
+        var _this = this;
+        if(_this.timer){
+            clearTimeout(_this.timer);
+        }
         this.setState({"index": index});
         this.setState({"toggle":!this.state.toggle});
         this.setState({"navHeight": this.refs["public-navigation-list"].clientHeight});
+
         ev.stopPropagation();
     }
 
     nodeMouseover(item, navList, index, ev){
         var _this = this;
         this.setState({"secondIndex": index});
-        console.log(ev.target)
         if(ev.target.parentNode.parentNode.className==="navigation-list-third" || ev.target.parentNode.className==="navigation-list-third" || ev.target.className==="navigation-list-third"){
-            console.log("当前的三级菜单")
-            if(this.timer){
+            if(_this.timer){
                 clearTimeout(_this.timer);
             }
         }
@@ -149,11 +153,15 @@ class Navigation extends Component {
 
     nodeMouseout(ev){
         var _this = this;
+        if(ev.target.parentNode.parentNode.className==="navigation-list-second"){
+            return false
+        }
         this.timer = setTimeout(()=>{
             _this.setState({"secondIndex":-1});
-            console.log("清空this.timer。。。。。。")
+            console.log("清空this.timer")
         },2000);
         ev.stopPropagation();
+        return false;
     }
 
     navScroll (obj){
