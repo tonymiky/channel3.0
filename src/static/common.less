@@ -1,0 +1,231 @@
+.clearfix {
+  clear: both;
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.public-header {
+  background: url("./images/header_bg.png");
+  height: 70px;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  .public-logo{
+    flex: 2;
+    h1{
+      display: inline-block;
+      font-size:14px;
+      color:#FFF;
+      font-weight:300;
+      position: relative;
+      top: 6px;
+    }
+  }
+  .public-links {
+    flex: 6;
+    ul.public-links-lists{
+      margin: 0;
+      padding:0;
+      list-style: none;
+      li{
+        float: left;
+        margin: 27px 0 0;
+        padding: 0 5px;
+        a{
+          position: relative;
+          color:#FFF;
+          font-size:12px;
+          font-weight: 300;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+          &:before {
+            position: absolute;
+            left: -4px;
+            top: 3px;
+            display: block;
+            content: '';
+            width: 1px;
+            height: 10px;
+            background: #FFF;
+          }
+        }
+      }
+    }
+  }
+  .public-user-info {
+    flex: 1.2;
+  }
+}
+
+.user-info{
+  position: relative;
+  display: flex;
+  top: 20px;
+  .user-info-icon{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      width:inherit;
+      height: inherit;
+    }
+  }
+  .user-info-name {
+    padding:0 5px;
+    position: relative;
+    top: 4px;
+    color: #fff;
+    font-size: 14px;
+  }
+  .user-info-details{
+    position: relative;
+    top: 3px;
+    color: #fff;
+    cursor: pointer;
+    .user-info-details-list{
+      position: absolute;
+      top: 40px;
+      right: 10px;
+      width:130px;
+      color: #000;
+      background: #f3f3f3;
+      padding: 10px 0;
+      border-radius: 4px;
+      .list{
+        padding: 0 20px;
+        height: 30px;
+        line-height: 30px;
+        span{
+          display: inline-block;
+          padding: 0 0 0 10px;
+          font-weight: 400;
+        }
+        &:hover{
+          background:#ddd;
+        }
+      }
+      &::before {
+        content:'';
+        position: absolute;
+        top: -10px;
+        right: 30px;
+        width: 0;
+        height: 0;
+        border: 10px solid #f3f3f3;
+        border-top: 0 solid transparent;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+      }
+    }
+  }
+}
+
+.public-body{
+  display: flex;
+  .public-body-left{
+     flex: 200px;
+  }
+  .public-body-right{
+    flex: calc(100% - 200px);
+  }
+}
+
+.public-content-body{
+  border:1px solid #f3f3f3;
+  overflow: auto;
+}
+
+.public-navigation{
+  position: relative;
+  background: #fff;
+  color: #000;
+  .navigation-list{
+    position: absolute;
+    width:100%;
+    font-size: 12px;
+    ul{
+      width:100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        cursor: pointer;
+        line-height: 38px;
+        span{
+          padding:0 10px 0 40px;
+          display: block;
+          color: #000;
+        }
+        span.navigation-root{
+          color:#000;
+          background:url("../static/images/nav_001.gif") no-repeat 185px 14px;
+          &:hover{
+            color: #3687FB;
+
+            background:url("../static/images/nav_0011.gif") no-repeat 185px 14px;
+          }
+        }
+        span.root-active{
+          position: relative;
+          color: #3687FB;
+          box-shadow: -3px 5px 10px #EBEBEC;
+          background:url("../static/images/nav_002.gif") no-repeat 185px 14px;
+          &:hover{
+            background:url("../static/images/nav_002.gif") no-repeat 185px 14px;
+          }
+        }
+        .navigation-list-second{
+          background: #F9FAFB;
+          color:#000;
+          li{
+            position: relative;
+            padding:0 0 0 40px!important;
+            transition: all 0.3s ease;
+            &:hover{
+              background: #edeff0;
+            }
+            span{
+              padding:0 10px 0 0;
+            }
+            .navigation-list-third {
+              position: absolute;
+              left:200px;
+              top: 0;
+              background: #edeff0;
+              li{
+                background: #edeff0;
+                &:hover{
+                  background: #edeff0;
+                  span{
+                    color: #3687fb;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
