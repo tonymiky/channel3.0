@@ -16,7 +16,7 @@ function Li(props) {
 
     FirstList.map((item, index)=>{
         arr.push(<li key={'nav_00'+index} >
-                <span onClick={props.nodeClick.bind(this, {item}, navArr,{index})} className={props.index.index==index && props.toggle ?
+                <span onClick={props.nodeClick.bind(this, {item}, navArr,{index})} className={props.index.index===index && props.toggle ?
                                 "navigation-root root-active" :
                                 "navigation-root"}>{item.name}</span>
             {<SecondLi nodeMouseover={props.nodeMouseover}
