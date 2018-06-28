@@ -50,12 +50,24 @@ class Content extends Component {
 
     componentWillReceiveProps(){
         setTimeout(()=>{
-            if(this.props.navNode!==null){
-                var name = this.props.navNode.name;
+            if(this.props.navNode !== null){
+                let name = this.props.navNode.name;
+                let activeKey = this.props.navNode.id;
                 const panes = this.state.panes;
-                const activeKey = `newTab${this.newTabIndex++}`;
-                panes.push({ title: name , content: 'New Tab Pane'+activeKey, key: activeKey });
-                this.setState({ panes, activeKey });
+                let navState = true;
+
+                panes.forEach(item => {
+                    console.log(item.key, activeKey);
+                    if(item.key == activeKey){
+                        navState = false;
+                    }
+                })
+                if(navState === true){
+                    panes.push({ title: name , content: 'New Tab Pane'+activeKey, key: activeKey });
+                    this.setState({ panes, activeKey });
+                }else{
+                    this.setState({ panes, activeKey });
+                }
             }
         },0);
 
