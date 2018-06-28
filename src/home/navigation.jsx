@@ -17,17 +17,18 @@ function Li(props) {
     FirstList.map((item, index)=>{
         arr.push(<li key={'nav_00'+index}
                      onClick={props.nodeClick.bind(this, {item}, navArr,{index})}>
-                <span className={props.index.index===index && props.toggle ?
+                <span className={props.index.index===index ?
                                 "navigation-root root-active" :
                                 "navigation-root"}>{item.name}</span>
             {<SecondLi nodeMouseover={props.nodeMouseover}
                        nodeMouseout={props.nodeMouseout}
+                       nodeLinkTo={props.nodeLinkTo}
                        item={item}
                        navArr={navArr}
                        index={index}
                        curIndex={props.index}
                        secondIndex={props.secondIndex}
-                        toggle={props.toggle}/>}
+                       toggle={props.toggle}/>}
         </li>);
         return item;
     });
@@ -45,17 +46,34 @@ function SecondLi(props) {
 
     navArr.map((item, index)=>{
         if(item.pId===id){
-            secondList.push(
-                <li key={"navSecondList_00"+(index+1)}
-                    onMouseOver={props.nodeMouseover.bind(this,{item}, navArr, secondList.length+1)}
-                    onMouseOut={props.nodeMouseout.bind(this)}>
-                    <span>{item.name}</span>
-                    <ThirdLi item={item}
-                             navArr={navArr}
-                             index={secondList.length+1}
-                             curIndex={props.secondIndex} />
-                </li>
-            )
+            if(item.isParent==="0"){
+                secondList.push(
+                    <li key={"navSecondList_00"+(index+1)}
+                        onClick={props.nodeLinkTo.bind(this,{item})}
+                        onMouseOver={props.nodeMouseover.bind(this,{item}, navArr, secondList.length+1)}
+                        onMouseOut={props.nodeMouseout.bind(this)}>
+                        <span>{item.name}</span>
+                        <ThirdLi item={item}
+                                 navArr={navArr}
+                                 nodeLinkTo={props.nodeLinkTo}
+                                 index={secondList.length+1}
+                                 curIndex={props.secondIndex} />
+                    </li>
+                )
+            }else{
+                secondList.push(
+                    <li key={"navSecondList_00"+(index+1)}
+                        onMouseOver={props.nodeMouseover.bind(this,{item}, navArr, secondList.length+1)}
+                        onMouseOut={props.nodeMouseout.bind(this)}>
+                        <span>{item.name}</span>
+                        <ThirdLi item={item}
+                                 navArr={navArr}
+                                 nodeLinkTo={props.nodeLinkTo}
+                                 index={secondList.length+1}
+                                 curIndex={props.secondIndex} />
+                    </li>
+                )
+            }
         }
         return item;
     })
@@ -77,11 +95,19 @@ function ThirdLi(props) {
 
     navArr.map((item, index)=>{
         if(item.pId===id){
-            thirdList.push(
-                <li key={"navThirdList_00"+(index+1)}>
-                    <span onClick={props.linkTo}>{item.name}</span>
-                </li>
-            )
+            if(item.isParent==="0"){
+                thirdList.push(
+                    <li key={"navThirdList_00"+(index+1)}>
+                        <span onClick={props.nodeLinkTo.bind(this,{item})}>{item.name}</span>
+                    </li>
+                )
+            }else{
+                thirdList.push(
+                    <li key={"navThirdList_00"+(index+1)}>
+                        <span>{item.name}</span>
+                    </li>
+                )
+            }
         }
     })
 
@@ -102,6 +128,7 @@ class Navigation extends Component {
         this.nodeClick       = this.nodeClick.bind(this);
         this.nodeMouseover   = this.nodeMouseover.bind(this);
         this.nodeMouseout    = this.nodeMouseout.bind(this);
+        this.nodeLinkTo      = this.nodeLinkTo.bind(this);
         this.state = {
             index: -1,
             secondIndex: -1,
@@ -139,6 +166,11 @@ class Navigation extends Component {
 
         ev.stopPropagation();
     }
+    //非父节点点击跳转
+    nodeLinkTo(item, ev){
+        this.props.getNavData(item);
+        ev.stopPropagation();
+    }
 
     nodeMouseover(item, navList, index, ev){
         var _this = this;
@@ -159,7 +191,7 @@ class Navigation extends Component {
         this.timer = setTimeout(()=>{
             _this.setState({"secondIndex":-1});
             console.log("清空this.timer")
-        },2000);
+        },1000);
         ev.stopPropagation();
         return false;
     }
@@ -227,6 +259,7 @@ class Navigation extends Component {
                     <ul className="navigation-list-first">
                         <Li navList={this.props.navList}
                             nodeClick={this.nodeClick}
+                            nodeLinkTo={this.nodeLinkTo}
                             nodeMouseover={this.nodeMouseover}
                             nodeMouseout={this.nodeMouseout}
                             index={this.state.index}

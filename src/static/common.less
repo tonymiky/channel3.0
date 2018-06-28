@@ -134,12 +134,14 @@
 }
 
 .public-body{
-  display: flex;
+  display: block;
+  flex-flow:row;
   .public-body-left{
-     flex: 200px;
+    float: left;
+     width: 200px;
   }
   .public-body-right{
-    flex: calc(100% - 200px);
+    margin:0 0 0 200px;
   }
 }
 
@@ -193,6 +195,8 @@
         .navigation-list-second{
           background: #F9FAFB;
           color:#000;
+          position: relative;
+          z-index: 2;
           li{
             position: relative;
             padding:0 0 0 40px!important;
