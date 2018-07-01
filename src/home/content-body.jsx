@@ -1,17 +1,21 @@
 import React ,{Component} from 'react';
 import Tabs from 'antd/lib/tabs';
-import Demo from '../pages/demo'
+import Demo from '../pages/demo';
+import TableDataList from '../pages/tableDataList';
 const TabPane = Tabs.TabPane;
+
+console.log(TableDataList)
 
 class Content extends Component {
     constructor(props){
         super(props);
         this.getScreenHeight = this.getScreenHeight.bind(this);
         this.add = this.add.bind(this);
-        this.remove =  this.remove.bind(this);
+        this.remove = this.remove.bind(this);
+        this.opennewTab = this.opennewTab.bind(this);
         this.newTabIndex = 0;
         const panes = [
-            { title: '决策流配置', content: <Demo />, key: '3467', closable: false }
+            { title: '决策流配置', content: <Demo opennewTab={this.opennewTab} />, key: '3467', closable: false }
         ];
 
 
@@ -82,6 +86,26 @@ class Content extends Component {
 
     getScreenHeight () {
         return document.body.clientHeight;
+    }
+
+    opennewTab (data) {
+        let name = data.name;
+        let activeKey = data.id;
+        const panes = this.state.panes;
+        let navState = true;
+
+        panes.forEach(item => {
+            console.log(item.key, activeKey);
+            if(item.key == activeKey){
+                navState = false;
+            }
+        })
+        if(navState === true){
+            panes.push({ title: name , content: <TableDataList />, key: activeKey });
+            this.setState({ panes, activeKey });
+        }else{
+            this.setState({ panes, activeKey });
+        }
     }
 
     render () {
