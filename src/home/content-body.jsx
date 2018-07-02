@@ -61,7 +61,7 @@ class Content extends Component {
                 let navState = true;
 
                 panes.forEach(item => {
-                    console.log(item.key, activeKey);
+                    //console.log(item.key, activeKey);
                     if(item.key == activeKey){
                         navState = false;
                     }

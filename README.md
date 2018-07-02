@@ -26,3 +26,9 @@ The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 See the section about [deployment](#deployment) for more information.
+
+###项目说明
+
+本项目用于文档学习案例，属于入门案例，使用React中的props，state，涉及到的功能包括：父组件到子组件间数据管理，子组件到父组件数据管理，兄弟组件间数据管理。
+第二阶段学习使用redux进行数据状态管理。
+
